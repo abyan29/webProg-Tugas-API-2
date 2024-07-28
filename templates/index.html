@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Data</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .alert {
+            padding: 20px;
+            background-color: blue;
+            color: white;
+            margin-bottom: 15px;
+            width: 300px;
+            height: 25px;
+            border-radius: 20px;
+        }
+        .alert strong {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: #0000EE;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .actions a {
+            margin-right: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #d9534f;
+        }
+        .create {
+            text-decoration: none;
+            color: rgb(0, 255, 8);
+            background-color: blue;
+            padding: 14px;
+            border-radius: 18px;
+        }
+        .create:hover {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    {% if messages %}
+    <div class="alert">
+        {% for message in messages %}
+        <strong>{{ message }}</strong>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <a class="create" href="{% url 'myFirstapp:create-data-student' %}">Create</a>
+    <table>
+        <thead>
+            <tr>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>e-mail</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in data_list %}
+            <tr>
+                <td>{{ obj.account_user_student_number }}</td>
+                <td>{{ obj.account_user_fullname }}</td>
+                <td>{{ obj.account_user_related_user }}</td>
+                <td class="actions">
+                    {% if obj.account_user_related_user %}
+                        <a href="{% url 'myFirstapp:update-data-student' obj.account_user_related_user %}">Update</a>
+                        <a href="{% url 'myFirstapp:delete-data-student' obj.account_user_related_user %}">Delete</a>
+                    {% else %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">
+                    <h1>Data masih kosong</h1>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+</body>
+</html>

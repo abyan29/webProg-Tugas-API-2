@@ -1,0 +1,24 @@
+{% load static %}
+{% block content %}
+<div class="container">
+  <h2>{% if form.instance.pk %}Update{% else %}Create{% endif %} Student Data</h2>
+  <form method="post" id="student-form" name="student-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_fullname">Nama Lengkap:</label>
+      {{ form.fullname }}
+    </div>
+    <div class="form-group">
+      <label for="id_nim">NIM:</label>
+      {{ form.nim }}
+    </div>
+    <div class="form-group">
+      <label for="id_email">Email:</label>
+      {{ form.email }}
+    </div>
+    <button type="submit" class="btn btn-primary">
+      {% if form.instance.pk %}Update{% else %}Simpan{% endif %}
+    </button>
+  </form>
+</div>
+{% endblock %}

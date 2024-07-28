@@ -1,0 +1,37 @@
+{% load static %}
+{% block content %}
+{% if messages %}
+    <div>
+        {% for message in messages %}
+            <strong>{{ message }}</strong>
+        {% endfor %}
+    </div> 
+    {% endif %}
+
+<table border="10">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>username</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for obj in data %}
+            <td>{{ obj.id }}</td>
+            <td>{{ obj.name }}</td>
+            <td>{{ obj.username }}</td>
+            <td>{{ obj.email }}</td>
+            <td>{{ obj.phone }}</td>
+            <td>{{ obj.address.street }},{{ obj.address.suite }}, {{ obj.address.city }}</td>
+        </tr>
+        {% empty %}
+            <h1>Data Masih Kosong</h1>
+            {% endfor %} 
+    </tbody>
+</table>
+{% endblock %}
